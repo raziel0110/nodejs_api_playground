@@ -25,14 +25,16 @@ export const auth = async (
       process.env.JWT_SECRET || ""
     ) as JwtPayload;
 
-    console.error("decode", decoded["user"]);
+    const id = decoded["user"]["id"];
+    const user = await User.findOne({ where: { id } });
 
-    // console.log(user);
+    if (!user) {
+      return res.status(400).json({ message: "User not found!" });
+    }
 
-    // req.user = user;
-    // next();
+    req.user = user;
+    next();
   } catch (err) {
-    console.log(err);
     return res.status(401).json({ message: "Token is not valid" });
   }
 };
