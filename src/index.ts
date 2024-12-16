@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import { sequelize } from "./models";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
+import taskRoutes from "./routes/taskRoutes";
 
 const PORT = process.env.PORT || 4000;
 
@@ -24,6 +25,7 @@ app.use((_req: Request, res: Response, next) => {
 });
 
 app.use("/api", userRoutes);
+app.use("/api", taskRoutes);
 app.use("/api/auth", authRoutes);
 
 sequelize.sync().then(() => {

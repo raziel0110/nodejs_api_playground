@@ -18,8 +18,4 @@ export const getUsers = async (_req: Request, res: Response) => {
 
 module.exports = { createUser, getUsers };
 
-export class registerUser {
-}
-
-export class loginUser {
-}
+export class registerUser {}

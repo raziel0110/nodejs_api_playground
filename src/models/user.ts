@@ -1,10 +1,15 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
+import { Task } from "./task";
 
 export class User extends Model {
   public id!: number;
   public name!: string;
   public email!: string;
   public password!: string;
+
+  static associate(models: any) {
+    User.hasMany(models.Task, { foreignKey: "userId" });
+  }
 
   public static initModel(sequelize: Sequelize): typeof User {
     User.init(
@@ -36,6 +41,7 @@ export class User extends Model {
         modelName: "User",
       }
     );
+
     return User;
   }
 }
