@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import { Task } from "./task";
+import { models } from ".";
 
 export class User extends Model {
   public id!: number;
@@ -7,8 +8,13 @@ export class User extends Model {
   public email!: string;
   public password!: string;
 
+  public async getTasks(): Promise<Task[]> {
+    const tasks = await Task.findAll({ where: { userId: this.id } });
+
+    return tasks;
+  }
   static associate(models: any) {
-    User.hasMany(models.Task, { foreignKey: "userId" });
+    User.hasMany(Task, { foreignKey: "userId" });
   }
 
   public static initModel(sequelize: Sequelize): typeof User {

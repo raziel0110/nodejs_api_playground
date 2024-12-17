@@ -9,7 +9,7 @@ export class Task extends Model {
   public userId!: number;
 
   static associate(models: any) {
-    Task.belongsTo(models.User, { foreignKey: "userId" });
+    Task.belongsTo(User, { foreignKey: "userId" });
   }
 
   public static initModel(sequelize: Sequelize): typeof Task {
@@ -35,13 +35,17 @@ export class Task extends Model {
             isIn: [["pending", "in-progress", "completed"]],
           },
         },
+        userId: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
       },
       {
         sequelize,
         modelName: "Task",
       }
     );
-    // Task.belongsTo(User, { foreignKey: "userId" });
+    // Task.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 
     return Task;
   }
