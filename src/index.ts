@@ -6,6 +6,7 @@ import { sequelize } from "./models";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import categoryRoutes from "./routes/categoryRoutes";
 
 const PORT = process.env.PORT || 4000;
 
@@ -25,6 +26,7 @@ app.use((_req: Request, res: Response, next) => {
 });
 
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 app.use("/api", taskRoutes);
 app.use("/api/auth", authRoutes);
 

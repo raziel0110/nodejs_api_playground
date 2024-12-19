@@ -11,4 +11,13 @@ export const newTask = async (req: Request, res: Response) => {
   }
 };
 
-export const getTasks = async (req: Request, res: Response) => {};
+export const getAllTasks = async (req: Request, res: Response) => {
+  const tasks = await Task.findAll();
+
+  res.status(200).json({ tasks });
+};
+
+export const getUserTasks = async (req: Request, res: Response) => {
+  console.log(req.params);
+  const userId = req.params.userId;
+};
