@@ -1,5 +1,6 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import { User } from "./user";
+import { Category } from "./category";
 
 export class Task extends Model {
   public id!: number;
@@ -8,8 +9,9 @@ export class Task extends Model {
   public status!: string;
   public userId!: number;
 
-  static associate(models: any) {
+  static associate(_models: any) {
     Task.belongsTo(User, { foreignKey: "userId" });
+    Task.belongsTo(Category, {foreignKey: "categoryId"});
   }
 
   public static initModel(sequelize: Sequelize): typeof Task {
@@ -39,14 +41,16 @@ export class Task extends Model {
           type: DataTypes.INTEGER,
           allowNull: false,
         },
+        categoryId: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+        },
       },
       {
         sequelize,
         modelName: "Task",
       }
     );
-    // Task.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
-
     return Task;
   }
 }
