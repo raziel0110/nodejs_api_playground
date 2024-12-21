@@ -8,10 +8,12 @@ export class Task extends Model {
   public description!: string;
   public status!: string;
   public userId!: number;
+  public createdAt!: string;
+  public updatedAt!: string;
 
   static associate(_models: any) {
     Task.belongsTo(User, { foreignKey: "userId" });
-    Task.belongsTo(Category, {foreignKey: "categoryId"});
+    Task.belongsTo(Category, { foreignKey: "categoryId" });
   }
 
   public static initModel(sequelize: Sequelize): typeof Task {

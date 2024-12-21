@@ -20,6 +20,7 @@ export const getAllTasks = async (req: Request, res: Response) => {
 
 export const getFilterTasks = async (req: Request, res: Response) => {
   const { userId } = req.body;
+  const { sort = "createdAt", order = "ASC" } = req.query;
 
   const category = await Category.findOne({
     where: { name: req.query.category },
@@ -28,6 +29,7 @@ export const getFilterTasks = async (req: Request, res: Response) => {
   try {
     const tasks = await Task.findAll({
       where: { userId: userId, categoryId: category?.id },
+      order: [[sort as string, order as string]],
     });
 
     return res.status(200).json({ tasks });
